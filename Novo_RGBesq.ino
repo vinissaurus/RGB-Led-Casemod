@@ -11,7 +11,7 @@ int RECV_PIN = A0;
 
 IRrecv irrecv(RECV_PIN);
 
-decode_results results;
+//decode_results results;
 
 char IRcode[6][4]= {
   {'F700FF','F7807F','F740BF','F7C03F'},
@@ -23,8 +23,8 @@ char IRcode[6][4]= {
   };
 
 void setup() {
-irrecv.enableIRIn();
-Serial.begin(9600);
+//irrecv.enableIRIn();
+//Serial.begin(9600);
   
  pinMode(Rs,OUTPUT);
  pinMode(Gs,OUTPUT);
@@ -37,30 +37,44 @@ Serial.begin(9600);
 
 int t=5;
 void loop() {
-  if (irrecv.decode(&results)) {
-    Serial.println(results.value,HEX);
-    if(results.value==0xF700FF){
-  digitalWrite(Rs,LOW);
-       digitalWrite(Gs,LOW);
-       digitalWrite(Bs,LOW);
-      
-      digitalWrite(Rs,HIGH);
-       digitalWrite(Gs,HIGH);
-       delay(1000);
-      }
+  for(int i=0;i<255;i++){
+    analogWrite(R,i);
+    analogWrite(Rs,i);
+    delay(t);
+    }
 
-if(results.value==0xF7E817){
+    digitalWrite(R,LOW);
+    digitalWrite(G,LOW);
+    digitalWrite(B,LOW);
     digitalWrite(Rs,LOW);
-       digitalWrite(Gs,LOW);
-       digitalWrite(Bs,LOW);
-      digitalWrite(Bs,HIGH);
-       digitalWrite(Gs,HIGH);
-       delay(1000);
-      }
+    digitalWrite(Gs,LOW);
+    digitalWrite(Bs,LOW);
 
-     
-    irrecv.resume(); // Receive the next value
-  }
+    for(int i=0;i<255;i++){
+    analogWrite(G,i);
+    analogWrite(Gs,i);
+    delay(t);
+    }
+
+        digitalWrite(R,LOW);
+    digitalWrite(G,LOW);
+    digitalWrite(B,LOW);
+      digitalWrite(Rs,LOW);
+    digitalWrite(Gs,LOW);
+    digitalWrite(Bs,LOW);
+
+    for(int i=0;i<255;i++){
+    analogWrite(B,i);
+    analogWrite(Bs,i);
+    delay(t);
+    }
+
+        digitalWrite(R,LOW);
+    digitalWrite(G,LOW);
+    digitalWrite(B,LOW);
+      digitalWrite(Rs,LOW);
+    digitalWrite(Gs,LOW);
+    digitalWrite(Bs,LOW);
   
 //for(int i=0;i<255;i++){
 //  analogWrite(Rs,i);
